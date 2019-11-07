@@ -22,33 +22,22 @@ public class Male extends Person {
             System.out.println("Talkative couple");
             return true;
         } else {
-            System.out.println("Shy couple");
+            System.out.println("Boys couple");
             return Math.random() < 0.5;
         }
     }
 
     @Override
     public boolean tolerate(Person p) {
-        return this.gender == p.gender ? Math.random() < 0.056 : Math.random() < 0.7;
-    }
-
-    @Override
-    public boolean spendTimeTogether(Person p) {
-        float diff = p.height > this.height ? p.height * 0.1F : this.height * 0.1F;
-        boolean s = this.height - p.height > diff || p.height - this.height > diff ? Math.random() < 0.85 : Math.random() < 0.95;
-        if (s) {
-            System.out.println("Couple compatibility 85%");
-        } else {
-            System.out.println("Couple compatibility 95%");
-        }
-        return s;
+        return this.gender == p.gender ? Math.random() > 0.056 : Math.random() < 0.7;
     }
 
     @Override
     public Person relations(Person p) {
-        if ((talk(p) && tolerate(p) && spendTimeTogether(p)) && this.gender != p.gender) {
+        if ((talk(p) && tolerate(p) && spendTimeTogether(p)) && (this.gender != p.gender)) {
+            Female f = (Female) p;
             System.out.println("Couple decide to have a child");
-            return Female.giveBirthToAMan(this);
+            return f.giveBirthToAMan(this);
         } else {
             System.out.println("Couple decide break up");
             return null;

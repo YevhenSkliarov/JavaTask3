@@ -26,26 +26,14 @@ public class Female extends Person {
 
     @Override
     public boolean tolerate(Person p) {
-        boolean truthy = Math.random() < 0.05;
+        boolean truthy = Math.random() > 0.05;
         boolean falthy = Math.random() < 0.7;
         return this.gender == p.gender ? truthy : falthy;
     }
 
     @Override
-    public boolean spendTimeTogether(Person p) {
-        float diff = p.height > this.height ? p.height * 0.1F : this.height * 0.1F;
-        boolean s = this.height - p.height > diff || p.height - this.height > diff ? Math.random() < 0.85 : Math.random() < 0.95;
-        if (s) {
-            System.out.println("Couple compatibility 85%");
-        } else {
-            System.out.println("Couple compatibility 95%");
-        }
-        return s;
-    }
-
-    @Override
     public Person relations(Person p) {
-        if ((talk(p) && tolerate(p) && spendTimeTogether(p)) && this.gender != p.gender) {
+        if ((talk(p) && tolerate(p) && spendTimeTogether(p)) && (this.gender != p.gender)) {
             System.out.println("Couple decide to have a child");
             return giveBirthToAMan(p);
         } else {
@@ -54,17 +42,24 @@ public class Female extends Person {
         }
     }
 
-    public static Person giveBirthToAMan(Person p) {
+    public Person giveBirthToAMan(Person p) {
+        float height;
+        float weight;
         Scanner in = new Scanner(System.in);
-        System.out.println("Please input children name:");
-        String name = in.next();
         boolean gender = Math.random() < 0.5;
-        System.out.println(gender);
+        String child = gender ? "boy" : "girl";
+        System.out.println("Couple will have a " + child + " Please input children name:");
+        String name = in.next();
         String surname = p.surname;
-        float height = p.height * 0.9F;
-        float weight = p.height * 0.9F;
+        if (gender) {
+            height = p.height + ((this.height - p.height) * 0.1F);
+            weight = p.weight + ((this.weight - p.weight) * 0.1F);
+        } else {
+            height = this.height + ((p.height - this.height) * 0.1F);
+            weight = this.weight + ((p.weight - this.weight) * 0.1F);
+        }
         System.out.println("Children was born");
-        Person person = gender?new Male(gender, name, surname, height, weight):new Female(gender, name, surname, height, weight);;
+        Person person = gender ? new Male(gender, name, surname, height, weight) : new Female(gender, name, surname, height, weight);
         System.out.println(person);
         return person;
     }

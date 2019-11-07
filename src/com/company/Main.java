@@ -1,4 +1,5 @@
 package com.company;
+
 import java.util.Scanner;
 
 public class Main {
@@ -6,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         Person p1 = generatePerson();
         Person p2 = generatePerson();
-        compatibilityTest(p1,p2);
+        compatibilityTest(p1, p2);
     }
 
     private static Person generatePerson() {
@@ -31,8 +32,8 @@ public class Main {
 
     }
 
-    private static Person compatibilityTest(Person p1,Person p2){
-            Person p3 = p2.relations(p1);
-            return p3;
+    private static Person compatibilityTest(Person p1, Person p2) {
+        Person p3 = p2.relations(p1);
+        return p3;
     }
 }
