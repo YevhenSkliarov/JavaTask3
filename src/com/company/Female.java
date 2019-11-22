@@ -35,14 +35,14 @@ public class Female extends Person {
     public Person relations(Person p) {
         if ((talk(p) && tolerate(p) && spendTimeTogether(p)) && (this.gender != p.gender)) {
             System.out.println("Couple decide to have a child");
-            return giveBirthToAMan(p);
+            return giveBirthToAMan(p,this);
         } else {
             System.out.println("Couple decide break up");
             return null;
         }
     }
 
-    public Person giveBirthToAMan(Person p) {
+    public static Person giveBirthToAMan(Person m,Person f) {
         float height;
         float weight;
         Scanner in = new Scanner(System.in);
@@ -50,13 +50,13 @@ public class Female extends Person {
         String child = gender ? "boy" : "girl";
         System.out.println("Couple will have a " + child + " Please input children name:");
         String name = in.next();
-        String surname = p.surname;
+        String surname = m.surname;
         if (gender) {
-            height = p.height + ((this.height - p.height) * 0.1F);
-            weight = p.weight + ((this.weight - p.weight) * 0.1F);
+            height = m.height + ((f.height - m.height) * 0.1F);
+            weight = m.weight + ((f.weight - m.weight) * 0.1F);
         } else {
-            height = this.height + ((p.height - this.height) * 0.1F);
-            weight = this.weight + ((p.weight - this.weight) * 0.1F);
+            height = f.height + ((m.height - f.height) * 0.1F);
+            weight = f.weight + ((m.weight - f.weight) * 0.1F);
         }
         System.out.println("Children was born");
         Person person = gender ? new Male(gender, name, surname, height, weight) : new Female(gender, name, surname, height, weight);

@@ -35,9 +35,8 @@ public class Male extends Person {
     @Override
     public Person relations(Person p) {
         if ((talk(p) && tolerate(p) && spendTimeTogether(p)) && (this.gender != p.gender)) {
-            Female f = (Female) p;
             System.out.println("Couple decide to have a child");
-            return f.giveBirthToAMan(this);
+            return Female.giveBirthToAMan(this,p);
         } else {
             System.out.println("Couple decide break up");
             return null;
